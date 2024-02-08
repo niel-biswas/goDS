@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package trie
 
 const ENGLISH_ALPHABETS = 26
 
@@ -56,11 +54,11 @@ func (t *Trie) StartsWith(prefix string) bool {
 	return true
 }
 
-func main() {
+/*func main() {
 	myTrie := NewTrie()
 	myTrie.Insert("aragorn")
 	myTrie.Insert("googly")
 	myTrie.Insert("organic")
 	fmt.Println(myTrie.Search("googly"))
 	fmt.Println(myTrie.StartsWith("goog"))
-}
+}*/
