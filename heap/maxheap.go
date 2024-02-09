@@ -101,6 +101,6 @@ func (h *MaxHeap) Extract() int {
 	myHeap.Print()
 }*/
 
-// Part of Go standard library, heap can be implemented by using container/heap interface. You need to define your own struct for heap
+// Part of Go standard library, heap is already implemented in container/heap interface. You need to define your own struct for heap
 // data structure and implement the methods required. The benefit of using such approach is that Go standard library takes care of
 // heapify process (Up & Down) reducing the complexity. This heap implementation is just to understand the concept of heap in general.
