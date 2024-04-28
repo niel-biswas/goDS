@@ -3,43 +3,43 @@ package main
 import "fmt"
 
 type Node struct {
-	Key   int
+	Value int
 	Left  *Node
 	Right *Node
 }
 
-func NewNode(key int) *Node {
-	return &Node{Key: key}
+func NewNode(value int) *Node {
+	return &Node{Value: value}
 }
 
-func (n *Node) Insert(k int) {
-	if n.Key < k {
+func (n *Node) Insert(v int) {
+	if n.Value < v {
 		// move right
 		if n.Right == nil {
-			n.Right = &Node{Key: k}
+			n.Right = &Node{Value: v}
 		} else {
-			n.Right.Insert(k)
+			n.Right.Insert(v)
 		}
-	} else if n.Key > k {
+	} else if n.Value > v {
 		// move left
 		if n.Left == nil {
-			n.Left = &Node{Key: k}
+			n.Left = &Node{Value: v}
 		} else {
-			n.Left.Insert(k)
+			n.Left.Insert(v)
 		}
 	}
 }
 
-func (n *Node) Search(k int) bool {
+func (n *Node) Search(v int) bool {
 	if n == nil {
 		return false
 	}
-	if n.Key < k {
+	if n.Value < v {
 		// move right
-		return n.Right.Search(k)
-	} else if n.Key > k {
+		return n.Right.Search(v)
+	} else if n.Value > v {
 		// move left
-		return n.Left.Search(k)
+		return n.Left.Search(v)
 	}
 	return true
 }
