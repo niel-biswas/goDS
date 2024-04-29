@@ -59,10 +59,15 @@ func (tree *Node) min() int {
 }
 
 func (tree *Node) remove(value int, parent *Node) {
+	// base case
 	if tree == nil {
 		return
 	}
-	if value == tree.Value {
+	if value < tree.Value {
+		tree.Left.remove(value, tree)
+	} else if value > tree.Value {
+		tree.Right.remove(value, tree)
+	} else if value == tree.Value {
 		// no children
 		if tree.Left == nil && tree.Right == nil {
 			if parent == nil {
@@ -96,10 +101,6 @@ func (tree *Node) remove(value int, parent *Node) {
 			tree.Value = tree.Right.min()
 			tree.Right.remove(tree.Value, tree)
 		}
-	} else if value < tree.Value {
-		tree.Left.remove(value, tree)
-	} else {
-		tree.Right.remove(value, tree)
 	}
 }
 
