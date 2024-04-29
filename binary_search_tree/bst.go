@@ -8,10 +8,6 @@ type Node struct {
 	Right *Node
 }
 
-func NewNode(value int) *Node {
-	return &Node{Value: value}
-}
-
 func (n *Node) Insert(v int) {
 	if n.Value < v {
 		// move right
@@ -44,13 +40,79 @@ func (n *Node) Search(v int) bool {
 	return true
 }
 
+func (tree *Node) Remove(value int) *Node {
+	tree.remove(value, nil)
+	return tree
+}
+
+func (tree *Node) max() int {
+	for tree.Right != nil {
+		tree = tree.Right
+	}
+	return tree.Value
+}
+func (tree *Node) min() int {
+	for tree.Left != nil {
+		tree = tree.Left
+	}
+	return tree.Value
+}
+
+func (tree *Node) remove(value int, parent *Node) {
+	if tree == nil {
+		return
+	}
+	if value == tree.Value {
+		// no children
+		if tree.Left == nil && tree.Right == nil {
+			if parent == nil {
+				return
+			} else if parent.Left == tree {
+				parent.Left = nil
+			} else {
+				parent.Right = nil
+			}
+			// one child
+		} else if tree.Left != nil && tree.Right == nil {
+			if parent == nil {
+				tree.Value = tree.Left.max()
+				tree.Left.remove(tree.Value, tree)
+			} else if parent.Left == tree {
+				parent.Left = tree.Left
+			} else {
+				parent.Right = tree.Left
+			}
+		} else if tree.Right != nil && tree.Left == nil {
+			if parent == nil {
+				tree.Value = tree.Right.min()
+				tree.Right.remove(tree.Value, tree)
+			} else if parent.Left == tree {
+				parent.Left = tree.Right
+			} else {
+				parent.Right = tree.Right
+			}
+			// two children
+		} else {
+			tree.Value = tree.Right.min()
+			tree.Right.remove(tree.Value, tree)
+		}
+	} else if value < tree.Value {
+		tree.Left.remove(value, tree)
+	} else {
+		tree.Right.remove(value, tree)
+	}
+}
+
 func main() {
-	bst := NewNode(12)
+	bst := &Node{Value: 12}
 	bst.Insert(56)
 	bst.Insert(66)
 	bst.Insert(68)
 	bst.Insert(67)
 	bst.Insert(87)
-
+	showInOrder(bst)
+	fmt.Println(bst.Search(67))
+	fmt.Println(bst.Remove(67))
+	showInOrder(bst)
 	fmt.Println(bst.Search(67))
 }
