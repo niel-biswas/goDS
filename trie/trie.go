@@ -17,9 +17,9 @@ func NewTrie() *Trie {
 
 func (t *Trie) Insert(word string) {
 	currentNode := t.root
-	for _, rune := range word {
+	for _, char := range word {
 		// convert rune to index
-		charAtIndex := rune - 'a'
+		charAtIndex := char - 'a'
 		if currentNode.children[charAtIndex] == nil {
 			currentNode.children[charAtIndex] = &Node{}
 		}
@@ -30,9 +30,9 @@ func (t *Trie) Insert(word string) {
 
 func (t *Trie) Search(word string) bool {
 	currentNode := t.root
-	for _, rune := range word {
+	for _, char := range word {
 		// convert rune to index
-		charAtIndex := rune - 'a'
+		charAtIndex := char - 'a'
 		if currentNode.children[charAtIndex] == nil {
 			return false
 		}
