@@ -26,9 +26,9 @@ func NewTrie() *Trie {
 // Insert adds a word into the Trie
 func (t *Trie) Insert(word string) {
 	currentNode := t.root
-	for _, rune := range word {
-		// convert rune to index
-		charAtIndex := rune - 'a'
+	for _, char := range word {
+		// convert rune (char) to index
+		charAtIndex := char - 'a'
 		if currentNode.children[charAtIndex] == nil {
 			currentNode.children[charAtIndex] = &TrieNode{}
 		}
@@ -40,9 +40,9 @@ func (t *Trie) Insert(word string) {
 // Search returns true/false if the word exists in the Trie
 func (t *Trie) Search(word string) bool {
 	currentNode := t.root
-	for _, rune := range word {
-		// convert rune to index
-		charAtIndex := rune - 'a'
+	for _, char := range word {
+		// convert rune (char) to index
+		charAtIndex := char - 'a'
 		if currentNode.children[charAtIndex] == nil {
 			return false
 		}
@@ -54,9 +54,9 @@ func (t *Trie) Search(word string) bool {
 // StartsWith returns true/false if any word in the Trie has the given prefix
 func (t *Trie) StartsWith(prefix string) bool {
 	currentNode := t.root
-	for _, rune := range prefix {
-		// convert rune to index
-		charAtIndex := rune - 'a'
+	for _, char := range prefix {
+		// convert rune (char) to index
+		charAtIndex := char - 'a'
 		if currentNode.children[charAtIndex] == nil {
 			return false
 		}
