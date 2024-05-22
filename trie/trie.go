@@ -2,37 +2,47 @@ package trie
 
 const ENGLISH_ALPHABETS = 26
 
-type Node struct {
-	children [ENGLISH_ALPHABETS]*Node
+// TrieNode represents a node in the Trie
+type TrieNode struct {
+	children [ENGLISH_ALPHABETS]*TrieNode
 	isEnd    bool
 }
 
+// Trie represents the Trie itself
 type Trie struct {
-	root *Node
+	root *TrieNode
 }
 
-func NewTrieNode() *Trie {
-	return &Trie{root: &Node{}}
+// NewTrieNode initializes a new TrieNode
+func NewTrieNode() *TrieNode {
+	return &TrieNode{}
 }
 
+// NewTrie initializes a new Trie
+func NewTrie() *Trie {
+	return &Trie{root: NewTrieNode()}
+}
+
+// Insert adds a word into the Trie
 func (t *Trie) Insert(word string) {
 	currentNode := t.root
-	for _, char := range word {
+	for _, rune := range word {
 		// convert rune to index
-		charAtIndex := char - 'a'
+		charAtIndex := rune - 'a'
 		if currentNode.children[charAtIndex] == nil {
-			currentNode.children[charAtIndex] = &Node{}
+			currentNode.children[charAtIndex] = &TrieNode{}
 		}
 		currentNode = currentNode.children[charAtIndex]
 	}
 	currentNode.isEnd = true
 }
 
+// Search returns true/false if the word exists in the Trie
 func (t *Trie) Search(word string) bool {
 	currentNode := t.root
-	for _, char := range word {
+	for _, rune := range word {
 		// convert rune to index
-		charAtIndex := char - 'a'
+		charAtIndex := rune - 'a'
 		if currentNode.children[charAtIndex] == nil {
 			return false
 		}
@@ -41,6 +51,7 @@ func (t *Trie) Search(word string) bool {
 	return currentNode.isEnd
 }
 
+// StartsWith returns true/false if any word in the Trie has the given prefix
 func (t *Trie) StartsWith(prefix string) bool {
 	currentNode := t.root
 	for _, rune := range prefix {
