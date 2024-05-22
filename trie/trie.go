@@ -11,7 +11,7 @@ type Trie struct {
 	root *Node
 }
 
-func NewTrie() *Trie {
+func NewTrieNode() *Trie {
 	return &Trie{root: &Node{}}
 }
 
