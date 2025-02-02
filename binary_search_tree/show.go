@@ -26,8 +26,8 @@ func showPreOrder(root *Node) {
 // Traverse left sub-tree, right sub-tree, root
 func showPostOrder(root *Node) {
 	if root != nil {
-		fmt.Println(root.Value)
 		showInOrder(root.Left)
 		showInOrder(root.Right)
+		fmt.Println(root.Value)
 	}
 }

@@ -105,17 +105,25 @@ func (tree *Node) remove(value int, parent *Node) {
 }
 
 func main() {
-	bst := &Node{Value: 12}
+	bst := &Node{Value: 102}
 	bst.Insert(56)
 	bst.Insert(66)
 	bst.Insert(68)
 	bst.Insert(67)
 	bst.Insert(87)
-	fmt.Println("Print BST")
+	fmt.Println("Print BST (Inorder)")
 	showInOrder(bst)
+	fmt.Println("Print BST (Preorder)")
+	showPreOrder(bst)
+	fmt.Println("Print BST (Postorder)")
+	showPostOrder(bst)
 	fmt.Println("Search 67: ", bst.Search(67))
 	fmt.Println("Remove 67", bst.Remove(67))
 	fmt.Println("Search 67 again: ", bst.Search(67))
-	fmt.Println("Print BST again")
+	fmt.Println("Print BST again(Inorder)")
 	showInOrder(bst)
+	fmt.Println("Print BST again(Preorder)")
+	showPreOrder(bst)
+	fmt.Println("Print BST again(Postorder)")
+	showPostOrder(bst)
 }
