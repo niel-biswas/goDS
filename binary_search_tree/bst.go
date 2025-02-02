@@ -69,7 +69,7 @@ func (node *TreeNode) remove(value int, parent *TreeNode) {
 		node.Right.remove(value, node)
 	} else if value == node.Value {
 		// no children
-		if node.Left == nil && node.Right == nil {
+		if node.Left == nil {
 			if parent == nil {
 				return
 			} else if parent.Left == node {
