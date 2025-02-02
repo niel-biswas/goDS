@@ -2,110 +2,110 @@ package main
 
 import "fmt"
 
-type Node struct {
+type TreeNode struct {
 	Value int
-	Left  *Node
-	Right *Node
+	Left  *TreeNode
+	Right *TreeNode
 }
 
-func (n *Node) Insert(v int) {
-	if n.Value < v {
+func (node *TreeNode) Insert(v int) {
+	if node.Value < v {
 		// move right
-		if n.Right == nil {
-			n.Right = &Node{Value: v}
+		if node.Right == nil {
+			node.Right = &TreeNode{Value: v}
 		} else {
-			n.Right.Insert(v)
+			node.Right.Insert(v)
 		}
-	} else if n.Value > v {
+	} else if node.Value > v {
 		// move left
-		if n.Left == nil {
-			n.Left = &Node{Value: v}
+		if node.Left == nil {
+			node.Left = &TreeNode{Value: v}
 		} else {
-			n.Left.Insert(v)
+			node.Left.Insert(v)
 		}
 	}
 }
 
-func (n *Node) Search(v int) bool {
-	if n == nil {
+func (node *TreeNode) Search(v int) bool {
+	if node == nil {
 		return false
 	}
-	if n.Value < v {
+	if node.Value < v {
 		// move right
-		return n.Right.Search(v)
-	} else if n.Value > v {
+		return node.Right.Search(v)
+	} else if node.Value > v {
 		// move left
-		return n.Left.Search(v)
+		return node.Left.Search(v)
 	}
 	return true
 }
 
-func (tree *Node) Remove(value int) *Node {
-	tree.remove(value, nil)
-	return tree
+func (node *TreeNode) Remove(value int) *TreeNode {
+	node.remove(value, nil)
+	return node
 }
 
-func (tree *Node) max() int {
-	for tree.Right != nil {
-		tree = tree.Right
+func (node *TreeNode) max() int {
+	for node.Right != nil {
+		node = node.Right
 	}
-	return tree.Value
+	return node.Value
 }
-func (tree *Node) min() int {
-	for tree.Left != nil {
-		tree = tree.Left
+func (node *TreeNode) min() int {
+	for node.Left != nil {
+		node = node.Left
 	}
-	return tree.Value
+	return node.Value
 }
 
-func (tree *Node) remove(value int, parent *Node) {
+func (node *TreeNode) remove(value int, parent *TreeNode) {
 	// base case
-	if tree == nil {
+	if node == nil {
 		return
 	}
-	if value < tree.Value {
-		tree.Left.remove(value, tree)
-	} else if value > tree.Value {
-		tree.Right.remove(value, tree)
-	} else if value == tree.Value {
+	if value < node.Value {
+		node.Left.remove(value, node)
+	} else if value > node.Value {
+		node.Right.remove(value, node)
+	} else if value == node.Value {
 		// no children
-		if tree.Left == nil && tree.Right == nil {
+		if node.Left == nil && node.Right == nil {
 			if parent == nil {
 				return
-			} else if parent.Left == tree {
+			} else if parent.Left == node {
 				parent.Left = nil
 			} else {
 				parent.Right = nil
 			}
 			// one child
-		} else if tree.Left != nil && tree.Right == nil {
+		} else if node.Left != nil && node.Right == nil {
 			if parent == nil {
-				tree.Value = tree.Left.max()
-				tree.Left.remove(tree.Value, tree)
-			} else if parent.Left == tree {
-				parent.Left = tree.Left
+				node.Value = node.Left.max()
+				node.Left.remove(node.Value, node)
+			} else if parent.Left == node {
+				parent.Left = node.Left
 			} else {
-				parent.Right = tree.Left
+				parent.Right = node.Left
 			}
-		} else if tree.Right != nil && tree.Left == nil {
+		} else if node.Right != nil && node.Left == nil {
 			if parent == nil {
-				tree.Value = tree.Right.min()
-				tree.Right.remove(tree.Value, tree)
-			} else if parent.Left == tree {
-				parent.Left = tree.Right
+				node.Value = node.Right.min()
+				node.Right.remove(node.Value, node)
+			} else if parent.Left == node {
+				parent.Left = node.Right
 			} else {
-				parent.Right = tree.Right
+				parent.Right = node.Right
 			}
 			// two children
 		} else {
-			tree.Value = tree.Right.min()
-			tree.Right.remove(tree.Value, tree)
+			node.Value = node.Right.min()
+			node.Right.remove(node.Value, node)
 		}
 	}
 }
 
 func main() {
-	bst := &Node{Value: 102}
+	bst := &TreeNode{Value: 102}
 	bst.Insert(56)
 	bst.Insert(66)
 	bst.Insert(68)
